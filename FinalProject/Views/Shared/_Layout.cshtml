@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FinalProject.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow ">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" asp-controller="Home" asp-action="Home">
+                    <img src="/image/Screenshot 2023-07-19 034325.png" style="width: 85%; height: auto; margin-bottom: 2px;"/>
+                </a>
+                <div class="navbar-collapse collapse d-sm-inline-flex @(Global.CurrentUser == null ? "justify-content-end" : "justify-content-between")">
+                    @if(Global.CurrentUser != null)
+                    {
+                        <ul class="navbar-nav d-none d-md-flex">
+                            <li class="dropdown nav-item">
+                                <a class="dropdown-toggle nav-link" id="drop-down-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" aria-controls="drop-down-menu" style="font-weight: 100; color: gray;">
+                                    <i class="fa fa-graduation-cap mr-1" aria-hidden="true"></i> MY COURSES
+                                </a>
+                                <div class="dropdown-menu" role="menu" id="drop-down-menu" aria-labelledby="drop-down">
+                                    @{
+                                        var list = Global.GetEnrolledCourse();
+                                    }
+                                    @foreach (var item in list)
+                                    {
+                                        <a href="/Course/View?cid=@item.Course.CourseId" class="dropdown-item" role="menuitem" style="color: black;">@item.Course.CourseName</a>
+                                    }
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul class="nav navbar-pills justify-content-end align-items-center" style="margin-right: 50px;">
+                            <li><i class="fa-solid fa-earth-americas fa-sm" style="color: #656567; font-size: 16px; margin-right: 15px"></i></li>
+                            <li><i class="fa-solid fa-bell" style="color: #656567; font-size: 16px; margin-right: 15px"></i></li>
+                            <li><i class="fa-solid fa-comment" style="color: #656567; font-size: 16px; margin-right: 15px"></i></li>
+                            <li>
+                                <p style="margin-bottom: 0; line-height: 1.5rem; font-size: 18px; color: #fd637a; margin-right: 10px; font-weight: 200; text-transform: uppercase;">@(Global.CurrentUser.Email)</p>
+                            </li>
+                            <li>
+                                <div id="profile-image" style="border-radius: 50%; background-color: dodgerblue; height: 40px; width: 40px; display: flex; justify-content: center; align-items: center; position: relative">
+                                    @Global.CurrentUser.Email.ToUpper()[0]
+                                </div>
+                                <div class="profile" id="profile">
+                                    <div class="profile-item" style="margin: 5px 0 5px 0"><i class="fa-solid fa-gauge" style="padding-right: 15px;"></i>DASHBOARD</div>
+                                    <hr style="width: 100%;"/>
+                                    <div class="profile-item" style="margin-top: 5px;"><i class="fa-solid fa-user" style="padding-right: 15px;"></i>PROFILE</div>
+                                    <div class="profile-item"><i class="fa-solid fa-table-cells" style="padding-right: 15px;"></i>GRADES</div>
+                                    <div class="profile-item"><i class="fa-solid fa-comment" style="padding-right: 15px;"></i>MESSAGE</div>
+                                    <div class="profile-item" style="margin-bottom: 5px; "><i class="fa-solid fa-wrench" style="padding-right: 15px;"></i>REFERENCES</div>
+                                    <hr style="width: 100%;" />
+                                    <div class="profile-item" style="margin: 5px 0 5px 0"><i class="fa-solid fa-right-from-bracket" style="padding-right: 15px;"></i>
+                                        <a href="/Home/Logout" style="text-decoration: none; color: black;">LOG OUT</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="nav navbar-pills justify-content-end" style="margin-right: 50px;">
+                            <li><i class="fa-solid fa-earth-americas fa-sm" style="color: #656567; font-size: 13px; margin-right: 15px"></i></li>
+                            <li>
+                                <div><p style="margin-bottom: 0; line-height: 1.5rem;">BẠN CHƯA ĐĂNG NHẬP. (<a href="/Home/Login" style="color: red;">ĐĂNG NHẬP</a>)</p></div>
+                            </li>
+                        </ul>
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="sidebar">
+                    <div class="side-bar-content text-white flex-column p-3">
+                    @if(Global.CurrentUser == null)
+                    {
+                        <div class="side-bar-content-item">
+                            <i class="fa-solid fa-house" style="margin-right: 10px"></i>
+                            <p>Trang chủ</p>
+                        </div>
+                    }
+                    else
+                    {
+                        if(Global.CurrentUser.Role == 1)
+                        {
+                            <div class="side-bar-content-item">
+                                <i class="fa-solid fa-house" style="padding-right: 15px"></i>
+                                <p>Home</p>
+                            </div>
+                            <div class="side-bar-content-item">
+                                <i class="fa-solid fa-gauge" style="padding-right: 15px;"></i>
+                                <p>Dashboard</p>
+                            </div>
+                            <div class="side-bar-content-item">
+                                <i class="fa-solid fa-calendar-days" style="padding-right: 15px"></i>
+                                <p>Calendar</p>
+                            </div>
+                            <div class="side-bar-content-item">
+                                <i class="fa-solid fa-file" style="padding-right: 15px"></i>
+                                <p>Private Files</p>
+                            </div>
+                            <div class="side-bar-content-item">
+                                <i class="fa-solid fa-graduation-cap" style="padding-right: 15px"></i>
+                                <p>My Course</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="side-bar-content-item">
+                                <i class="fa-solid fa-house" style="padding-right: 15px"></i>
+                                <a href="/Admin/ApproveAccount">Approve Account</a>
+                            </div>
+
+                            <div class="side-bar-content-item">
+                                <i class="fa-solid fa-house" style="padding-right: 15px"></i>
+                                <a href="/Admin/MyCourse">My Course</a>
+                            </div>
+                        }
+                    }
+                    </div>
+            </div>
+            <div class="content">
+                @RenderBody()
+                <footer class="footers">
+                    <div class="container">
+                        @if(Global.CurrentUser != null){
+                            <p style="color: white">You are logged in as <a href="#">@(Global.CurrentUser.Email)</a>. <a href="#" style="color: #a7c1c8">(Log out)</a></p>
+                            <p style="color: white"><a href="#" style="color: #a7c1c8">Get the mobile app</a></p>
+                            <p style="margin-top: 40px; margin-bottom: 0; color: white;">©Theme Trema</p>
+                        }
+                        else
+                        {
+                            <p style="color: white">Bạn chưa đăng nhập. <a href="#" style="color: #a7c1c8">(Đăng nhập)</a></p>
+                            <p style="color: white"><a href="#" style="color: #a7c1c8">Get the mobile app</a></p>
+                            <p style="margin-top: 40px; margin-bottom: 0; color: white;">©Theme Trema</p>
+                        }
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sidebar = document.querySelector('.sidebar');
+        const content = document.querySelector('.content');
+        const footer = document.querySelector('.footers');
+
+        document.querySelector('.navbar-toggler').addEventListener('click', function () {
+            sidebar.classList.toggle('sidebar-collapse')
+            content.classList.toggle('show-sidebar');
+            footer.classList.toggle('footer-collapse');
+        });
+
+        document.getElementById("drop-down-btn").addEventListener('click', function () {
+            var dropdown = this.parentNode;
+            dropdown.classList.toggle('show');
+        });
+
+        const profile_image = document.getElementById("profile-image");
+        const profile = document.getElementById("profile");
+
+        profile_image.addEventListener('click', function(){
+            profile.classList.toggle('display');
+        });
+    </script>
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.5.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/071e3e204d.js" crossorigin="anonymous"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

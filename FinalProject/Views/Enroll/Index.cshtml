@@ -1,0 +1,129 @@
+﻿@model Course
+<body>
+    <div class="card">
+        <div class="card-border">
+            <div class="card-border-left"></div>
+            <div class="card-border-right"></div>
+        </div>
+        <div class="card-content">
+            <h1>CMS - Course Management System</h1>
+            <p style="margin-bottom: 0;">
+                <a class="navigation-link" href="/Home/Home">Home</a>  /  <a class="navigation-link" href="/Course/Index">Courses</a>  /
+                <a class="navigation-link" href="/Enroll/Index?id=@Model.CourseId">@Model.CourseName</a>  /
+                <span style="color: black">Enrolment options</span>
+            </p>
+        </div>
+    </div>
+
+    <div style="margin: 0 15px 0 15px; padding: 20px 30px 180px 30px; background-color: white;">
+        <h3>Enrolment options</h3>
+        <div class="container-fluid" style="padding: 15px 0 0 0">
+            <div class="row row-cols-5">
+                <div class="col" style="min-height: 180px; padding: 5px;">
+                    <div style="box-shadow: 2px 2px 0px 0px rgba(0,0,0,0.1); margin: 0; border: none;">
+                        <div style="width: 100%; height: 120px;">
+                            <a href="/Enroll/Index?id=@Model.CourseId">
+                                <img src="@Global.GetRandomBackground()" style="width: 100%; height: 100%;" />
+                            </a>
+                        </div>
+                        <div style="text-align: center; width: 100%; height: fit-content; background-color: white; padding: 25px 20px 25px 20px;
+                                                border-bottom: 1px solid rgba(0,0,0,0.5); font-weight: 100;">
+                            <a href="/Enroll/Index?id=@Model.CourseId" style="text-decoration: none; color: #fd637a">@Model.CourseName</a>
+                        </div>
+                        <div style="width: 100%; background-color: #f7f7f7; padding: 20px;">
+                            <ul>
+                                <li>Course Creator: <span style="font-weight: 400; color: #fd637a">@Model.CreatorNavigation.Fullname</span></li>
+                            </ul>
+                        </div>
+                        <div style="width: 100%; padding: 15px;">
+                            Category: <span style="font-weight: 400; color: #fd637a">@Model.Category.CategoryName</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: start; align-items: center; margin-top: 20px;">
+                <i class="fa-solid fa-caret-right" style="margin-right: 10px;"></i>  
+                <div style="border-bottom: 0.5px solid rgba(0,0,0,0.2); padding: 10px 0 15px 0; width: 100%;"><h3 style="color: #fd637a; margin-bottom: 0; font-weight: 400;">Self enrolment (Student)</h3></div>
+            </div>
+            <div>
+                <form action="/Enroll/EnrollCourse" method="post">
+                    <input style="display: none;" value="@Model.CourseId" type="text" name="cid"/>
+                    <input type="submit" value="ENROL ME" class="enrol-btn">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const cate = document.querySelector('.subcategory-dropdown');
+
+        function toggleDropdown() {
+            cate.classList.toggle('show')
+        }
+    </script>
+</body>
+
+<style>
+    body{
+        background-color: #f7f7f7;
+    }
+    .card {
+        height: fit-content;
+        margin-left: 5%;
+        background-color: white;
+        margin: 50px 15px 20px 15px;
+        position: initial;
+    }
+
+    .card-border {
+        width: 100%;
+        height: 4px;
+        display: flex;
+    }
+
+    .card-border-left {
+        width: 50%;
+        background-color: #fd637a;
+    }
+
+    .card-border-right {
+        width: 50%;
+        background-color: black;
+    }
+
+    .card-content {
+        padding: 10px 15px;
+    }
+
+    .navigation-link {
+        color: #fd647a;
+        text-decoration: none;
+    }
+
+        .navigation-link:hover {
+            text-decoration: underline;
+            color: red;
+        }
+
+    form{
+        margin-top: 20px;
+        width: 100%; 
+        display: flex;
+        justify-content: center;
+    }
+
+    .enrol-btn{
+        width: 120px;
+        height: 50px;
+        color: black;
+        background-color: #fd637a;
+        border: none;
+        outline: none;
+        margin-bottom: 20px;
+    }
+    .enrol-btn:hover{
+        background-color: darkred;
+    }
+
+</style>

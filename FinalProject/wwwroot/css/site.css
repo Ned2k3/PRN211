@@ -1,0 +1,144 @@
+html {
+    font-size: 16px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+body {
+  overflow-x: hidden;
+}
+header{
+    position: sticky;
+    top: 0;
+}
+nav {
+    z-index: 10;
+    height: 70px;
+}
+
+.navbar-light .navbar-toggler {
+    display: block;
+    margin-right: 8px;
+    margin-left: 15px;
+    color: white;
+    border: none;
+}
+
+p{
+    line-height: 1;
+}
+
+.row{
+    margin: 0;
+    --bs-gutter-x: 0;
+}
+.container-fluid{
+    padding: 0;
+}
+.sidebar {
+    position: fixed;
+    top: 70px;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: calc(100% - 70px);
+    transition: width 0.2s ease;
+    z-index: 1000;
+    padding: 0;
+    background-color: #29292a;
+    overflow: hidden;
+}
+    .sidebar.sidebar-collapse {
+        width: 250px;
+        overflow: auto;
+    }
+.content{
+    margin-left: 0;
+    transition: margin-left 0.2s ease;
+}
+    .content.show-sidebar {
+        margin-left: 250px;
+        width: calc(100% - 250px);
+    }
+
+.side-bar-content-item{
+    display: flex;
+    flex-direction: row;
+    padding: 10px 20px 10px 10px
+}
+
+.footers {
+    padding: 25px 0 25px 0;
+    text-align: center;
+    background-color: #1a1c1b;
+    font-size: 15px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+    .footers.footer-collapse {
+        right: 0;
+        padding-left: 250px;
+    }
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 40vw;
+    min-height: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-menu a {
+    color: #333;
+    padding: 10px 16px;
+    text-decoration: none;
+    font-weight: 400;
+    display: block;
+}
+
+    /* Change color of dropdown links on hover */
+    .dropdown-menu a:hover {
+        background-color: #f7f7f7;
+    }
+
+.dropdown.show .dropdown-menu {
+    display: block;
+}
+
+#profile-image{
+    cursor: pointer;
+}
+.profile {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border: 0.5px solid rgba(0,0,0,.2);
+    z-index: 10;
+}
+.profile-item{
+    width: 100%;
+    padding: 5px 30px 5px 30px;
+    cursor: pointer;
+    font-weight: 400;
+}
+hr{
+    margin: 0
+}
+.profile-item:hover{
+    background-color: lightgray;
+}
+.profile.display{
+    display: block;
+}

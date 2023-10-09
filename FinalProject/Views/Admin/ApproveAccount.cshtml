@@ -1,0 +1,104 @@
+﻿@model List<Account>
+<body>
+    <div class="card">
+        <div class="card-border">
+            <div class="card-border-left"></div>
+            <div class="card-border-right"></div>
+        </div>
+        <div class="card-content">
+            <h1>Approve Account</h1>
+            <p style="margin-bottom: 0;">
+                <a class="navigation-link" href="/Home/Home">Home</a>  /  <span>Approve account</span>  /
+            </p>
+        </div>
+    </div>
+
+    <div style="margin: 0 15px 0 15px; padding: 20px 30px 180px 30px; background-color: white;">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <table>
+                    <tr>
+                        <th>No.</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    @{
+                        int i = 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@i</td>
+                            <td>@item.Email</td>
+                            <td>@item.Password</td>
+                            <td><a href="/Admin/ConfirmApprove?id=@item.AccountId" class="approve-btn">Appove</a></td>
+                            <td><a href="/Admin/ConfirmReject?id=@item.AccountId" class="approve-btn">Reject</a></td>
+                        </tr>
+                        i++;
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<style>
+    body {
+        background-color: #f7f7f7;
+    }
+
+    .card {
+        height: fit-content;
+        margin-left: 5%;
+        background-color: white;
+        margin: 50px 15px 20px 15px;
+        position: initial;
+    }
+
+    .card-border {
+        width: 100%;
+        height: 4px;
+        display: flex;
+    }
+
+    .card-border-left {
+        width: 50%;
+        background-color: #fd637a;
+    }
+
+    .card-border-right {
+        width: 50%;
+        background-color: black;
+    }
+
+    .card-content {
+        padding: 10px 15px;
+        margin-bottom: 20px;
+    }
+
+    table{
+        width: 60%;
+    }
+    th{
+        background-color: dodgerblue;
+    }
+    td{
+        border-top: 1px solid rgba(0,0,0,0.2);
+    }
+    th,td{
+        padding: 10px;
+        text-align: center;
+    }
+    .approve-btn{
+        text-decoration: none;
+        color: #fd637a;
+        border: 1px solid rgba(0,0,0,0.5);
+        border-radius: 5px;
+        padding: 5px;
+    }
+    .approve-btn:hover{
+        background-color: #fd637a;
+        color: white;
+    }
+</style>

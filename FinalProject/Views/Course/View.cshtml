@@ -1,0 +1,82 @@
+﻿@model Course
+<body>
+    <div class="card">
+        <div class="card-border">
+            <div class="card-border-left"></div>
+            <div class="card-border-right"></div>
+        </div>
+        <div class="card-content">
+            <div style="display: flex; justify-content: space-between;">
+                <h1>@Model.CourseName</h1>
+                <div>
+                    <i class="fa-solid fa-gear" style="color: #fd637a;"></i>
+                    <i class="fa-solid fa-caret-down" style="color: #fd637a;"></i>
+                </div>
+            </div>
+            <p style="margin-bottom: 0;">
+                <a class="navigation-link" href="/Home/Home">Home</a>  /  <span>My courses</span>  /
+                <a class="navigation-link" href="/Enroll/Index?id=@Model.CourseId">@Model.CourseName</a>  
+            </p>
+        </div>
+    </div>
+
+    <div style="margin: 0 15px 0 15px; padding: 20px 30px 180px 30px; background-color: white;">
+        <div class="container-fluid">
+            @foreach(var item in ViewBag.schedule)
+            {
+                (DateTime start, DateTime end) week = item;
+                bool now = DateTime.Now >= week.start && DateTime.Now <= week.end;
+
+                <div class="row" style="min-height: 60px; margin-top: 15px; border-left: @(now==true?"2px solid #fd637a" : "none"); padding-left: 10px">
+                    <div style="border: 0.5px solid rgba(0,0,0,0.5); padding: 10px;">
+                        <h5 style="color: #fd637a; font-weight: 300">@week.start.ToString("dd MMMM") - @week.end.ToString("dd MMMM")</h5>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+<style>
+    body {
+        background-color: #f7f7f7;
+    }
+
+    .card {
+        height: fit-content;
+        margin-left: 5%;
+        background-color: white;
+        margin: 50px 15px 20px 15px;
+        position: initial;
+    }
+
+    .card-border {
+        width: 100%;
+        height: 4px;
+        display: flex;
+    }
+
+    .card-border-left {
+        width: 50%;
+        background-color: #fd637a;
+    }
+
+    .card-border-right {
+        width: 50%;
+        background-color: black;
+    }
+
+    .card-content {
+        padding: 10px 15px;
+        margin-bottom: 20px;
+    }
+
+    .navigation-link {
+        color: #fd647a;
+        text-decoration: none;
+    }
+
+        .navigation-link:hover {
+            text-decoration: underline;
+            color: red;
+        }
+</style>

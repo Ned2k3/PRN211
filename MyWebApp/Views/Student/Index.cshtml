@@ -1,0 +1,29 @@
+﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@using MyWebApp.Models
+@model List<Student>
+
+<h2 class="text-center">@ViewBag.message</h2>
+
+<table border="1">
+    <tr>
+        <td>Code</td>
+        <td>Name</td>
+        <td>Mark</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Code</td>
+            <td>@item.Name</td>
+            <td>@item.Mark</td>
+            <td>
+                <a asp-controller="Student" asp-action="Update" asp-route-code="@item.Code">Select</a>
+            </td>
+            <td>
+                <a asp-controller="Student" asp-action="Delete" asp-route-code="@item.Code">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<br /><a asp-controller="Student" asp-action="Create">Create new student</a>

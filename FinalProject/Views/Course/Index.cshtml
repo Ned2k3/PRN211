@@ -1,0 +1,104 @@
+﻿@model dynamic
+<body>
+    <div class="card">
+        <div class="card-border">
+            <div class="card-border-left"></div>
+            <div class="card-border-right"></div>
+        </div>
+        <div class="card-content">
+            <h1>CMS - Course Management System</h1>
+            <p style="margin-bottom: 0;"><a class="navigation-link" href="/Home/Home">Home</a>  /  <a class="navigation-link" href="/Course/Index">Courses</a>
+        </div>
+    </div>
+
+    <div style="margin: 0 15px 0 15px; padding: 20px 30px 180px 30px; background-color: white;">
+        <div style="background-color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 0 40px 0;">
+            <form action="/Course/Search" method="post" style="margin-bottom: 20px;">
+                <label>Search Course: </label>
+                <input type="text" name="key" size="18" style="height: 2.75rem; border: .5px solid rgba(0,0,0,.5); padding-left: 10px; font-size: 16px" value="@ViewBag.searchKey" />
+                <input type="submit" value="GO" style="width: 50px; height: 2.75rem; background-color: black; color: white; font-weight: bold;
+                             cursor: pointer; margin: 0 0 0 10px" />
+            </form>
+            <div class="container-fluid">
+                <div class="category-container">
+                    @foreach (var item in ViewBag.categories)
+                    {
+                        <div class="subcategory-container" style="width: 100%; border: none;">
+                            <div style="display: flex; align-content: center;">
+                                <button style="border: none; background-color: white;"><i class="fa-solid fa-caret-right" style="color: gray;"></i></button>
+                                <a href="/Course/Index?cateID=@item.ID" class="category-item">@item.Name</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<style>
+    body {
+        background-color: #f7f7f7;
+    }
+
+    .card {
+        height: fit-content;
+        margin-left: 5%;
+        background-color: white;
+        margin: 50px 15px 20px 15px;
+        position: initial;
+    }
+
+    .card-border {
+        width: 100%;
+        height: 4px;
+        display: flex;
+    }
+
+    .card-border-left {
+        width: 50%;
+        background-color: #fd637a;
+    }
+
+    .card-border-right {
+        width: 50%;
+        background-color: black;
+    }
+
+    .card-content {
+        padding: 10px 15px;
+        margin-bottom: 20px;
+    }
+
+    .navigation-link {
+        color: #fd647a;
+        text-decoration: none;
+    }
+
+        .navigation-link:hover {
+            text-decoration: underline;
+            color: red;
+        }
+
+    .category-item {
+        font-size: 20px;
+        color: #fd637a;
+        font-weight: 400;
+        text-decoration: none;
+    }
+
+        .category-item:hover {
+            text-decoration: underline;
+            color: red;
+        }
+
+    .subcategory-dropdown {
+        display: none;
+        padding-left: 20px;
+        font-weight: 200;
+    }
+
+        .subcategory-dropdown.show {
+            display: block;
+        }
+</style>
+

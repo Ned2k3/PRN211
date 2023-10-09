@@ -1,0 +1,159 @@
+﻿@using FinalProject
+@using FinalProject.Models
+@using FinalProject.Models.ServiceModel;
+@using FinalProject.Models.DAO;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Account
+@{
+    Layout = null;
+}
+<body>
+    <div>
+        <div class="card">
+            <div class="card-border">
+                <div class="card-border-left"></div>
+                <div class="card-border-right"></div>
+            </div>
+            <div class="card-content">
+                <h1 style="font-weight: 200">CMS - Course Management System</h1>
+                @if(ViewBag.message != null)
+                {
+                    <p style="color: green; font-size: 18px;">@ViewBag.message</p>
+                    <p style="margin-bottom: 0;">Quay lại đăng nhập? <a href="/Home/Login">Đăng nhập</a></p>
+                    <p>Tiếp tục đăng ký tài khoản mới? <a href="/Home/SignUp" style="">Đăng ký</a></p>
+                }
+                else
+                {
+                    <p style="margin-bottom: 30px">Đăng kí bằng tài khoản fpt.edu.vn</p>
+                    <form action="/Home/SignUp" method="post" >
+                        <input type="text" name="email" id="email" placeholder="Nhập email fpt.edu.vn" asp-for="Email" />
+                        <input type="text" name="password" id="password" placeholder="Nhập mật khẩu" asp-for="Password" />
+                        <input type="text" name="password" id="re_password" placeholder="Nhập lại mật khẩu" />
+                        @if (ViewBag.emailExist != null)
+                        {
+                            <span style="color: red; font-size: 12px; display: block; margin-bottom: 10px;" id="error-message">@ViewBag.emailExist</span>
+                        }
+                        else
+                        {
+                            <span style="color: red; font-size: 12px; display: none; margin-bottom: 10px;" id="error-message"></span>
+                        }
+                        <button type="submit" class="login-btn" onclick="validate(event)">Đăng ký</button>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+        const re_password = document.getElementById("re_password");
+        const error = document.getElementById("error-message");
+
+        function validate(event){
+            if(email.value.length == 0){
+                error.style.display = "block";
+                error.innerHTML = "You must enter email";
+                event.preventDefault();
+                return;
+            }
+            if (!/^[A-Za-z0-9._%+-]+@@fpt\.edu\.vn$/.test(email.value)){
+                error.style.display = "block";
+                error.innerHTML = "You must enter valid fpt.edu.vn email";
+                event.preventDefault();
+                return;
+            }
+            if(password.value.length == 0){
+                error.style.display = "block";
+                error.innerHTML = "You must enter password";
+                event.preventDefault();
+                return;
+            }
+            if(re_password.value.length == 0){
+                error.style.display = "block";
+                error.innerHTML = "You must re-enter password";
+                event.preventDefault();
+                return;
+            }
+            if(re_password.value !== password.value){
+                error.style.display = "block";
+                error.innerHTML = "Password does not match";
+                event.preventDefault();
+                return;
+            }
+        }
+    </script>
+</body>
+<style>
+    body {
+        min-width: 100vw;
+        min-height: 100vh;
+        overflow: hidden;
+        background-image: url("https://media.hanoitv.vn/files/nguyenthuy/2021-02-01/FPT.jpg");
+        background-size: cover;
+        background-position: center;
+    }
+
+    .card {
+        width: 50%;
+        height: fit-content;
+        margin-left: 25%;
+        box-shadow: 0px 16px 46px -22px rgba(0,0,0,0.75);
+        background-color: white;
+        margin-top: 50px;
+    }
+
+    .card-border {
+        width: 100%;
+        height: 4px;
+        display: flex;
+    }
+
+    .card-border-left {
+        width: 50%;
+        background-color: #fd637a;
+    }
+
+    .card-border-right {
+        width: 50%;
+        background-color: black;
+    }
+
+    .card-content {
+        padding: 20px 40px 20px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    input {
+        width: 100%;
+        height: 40px;
+        margin-bottom: 10px;
+        border: none;
+        border-bottom: 2px solid green;
+        outline: none;
+    }
+
+    .login-btn {
+        text-align: center;
+        border: 1px solid black;
+        border-radius: 10px;
+        height: 40px;
+        cursor: pointer;
+        background-color: white;
+        color: lightgreen
+    }
+    .login-btn:hover{
+        border: none;
+        background-color: lightgreen;
+        color: white;
+    }
+</style>

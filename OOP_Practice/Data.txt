@@ -1,0 +1,7 @@
+       T01	        Ha Quang Dao	   3000000	         0
+       T02	      Dao Xuan Quang	    500000	         1
+       T03	    Nguyen Quang Huy	   4000000	         0
+       T04	      Nguyen Thu Diu	    400000	         1
+       T05	       Dao Minh Nhat	   4000000	         0
+       T06	      Pham Minh Tien	   2000000	         0
+       T07	 Dao Manh Tuan Cuong	    750000	         1
